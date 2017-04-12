@@ -190,9 +190,7 @@ namespace ContosoUniversity.Controllers
                 descending = true;
             }
 
-            students = SortCollectionBy(students, 
-                String.IsNullOrEmpty(sortOrder) ? "LastName" : sortOrder, 
-                descending);
+            students = SortCollectionBy(students, sortOrder, descending);
 
             int pageSize = 3;
             return View(await PaginatedList<Student>.CreateAsync(students.AsNoTracking(), 
