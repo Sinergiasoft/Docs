@@ -1,4 +1,4 @@
-#define SortFilterPage //or ScaffoldedIndex or SortOnly or SortFilter or DynamicLinq
+#define DynamicLinq //SortFilterPage //or ScaffoldedIndex or SortOnly or SortFilter or DynamicLinq
 #define ReadFirst //or CreateAndAttach
 #define DeleteWithReadFirst // or DeleteWithoutReadFirst
 
@@ -154,8 +154,10 @@ namespace ContosoUniversity.Controllers
             int? page)
         {
             ViewData["CurrentSort"] = sortOrder;
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "LastName_desc" : "";
-            ViewData["DateSortParm"] = sortOrder == "EnrollmentDate" ? "EnrollmentDate_desc" : "EnrollmentDate";
+            ViewData["NameSortParm"] = 
+                String.IsNullOrEmpty(sortOrder) ? "LastName_desc" : "";
+            ViewData["DateSortParm"] = 
+                sortOrder == "EnrollmentDate" ? "EnrollmentDate_desc" : "EnrollmentDate";
 
             if (searchString != null)
             {
@@ -188,13 +190,19 @@ namespace ContosoUniversity.Controllers
                 descending = true;
             }
 
-            students = SortCollectionBy(students, String.IsNullOrEmpty(sortOrder) ? "LastName" : sortOrder, descending);
+            students = SortCollectionBy(students, 
+                String.IsNullOrEmpty(sortOrder) ? "LastName" : sortOrder, 
+                descending);
 
             int pageSize = 3;
-            return View(await PaginatedList<Student>.CreateAsync(students.AsNoTracking(), page ?? 1, pageSize));
+            return View(await PaginatedList<Student>.CreateAsync(students.AsNoTracking(), 
+                page ?? 1, pageSize));
         }
 
-        private static IQueryable<T> SortCollectionBy<T>(IQueryable<T> collection, string propertyName, bool descending)
+        private static IQueryable<T> SortCollectionBy<T>(
+            IQueryable<T> collection, 
+            string propertyName, 
+            bool descending)
         {
             // Build the parameter expression for an item in the collection.
             // this would be the "p => " in a "p => p.LastName" orderby expression.
