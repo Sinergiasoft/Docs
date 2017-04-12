@@ -1,4 +1,4 @@
-#define DynamicLinq //SortFilterPage //or ScaffoldedIndex or SortOnly or SortFilter or DynamicLinq
+#define SortFilterPage //or ScaffoldedIndex or SortOnly or SortFilter or DynamicLinq
 #define ReadFirst //or CreateAndAttach
 #define DeleteWithReadFirst // or DeleteWithoutReadFirst
 
